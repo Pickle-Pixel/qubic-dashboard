@@ -1,0 +1,44 @@
+# Bytecode and caches
+__pycache__/
+*.py[cod]
+*.so
+
+# Conda environments
+.env/
+.venv/
+env/
+venv/
+*.env
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# Data/output files
+*.log
+*.csv
+*.db
+*.sqlite
+*.json
+*.xls
+*.xlsx
+data/
+
+# VS Code settings
+.vscode/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Testing artifacts
+coverage/
+*.cover
+*.pyc
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+
+# Pickle's addition

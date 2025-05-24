@@ -1,0 +1,20 @@
+### Purpose
+- Fetch mining information and metric from qli.dashboard and showcase it on Grafana server.
+
+### Inputs
+- every key data on qli dashboard
+
+### Outputs
+- qli dashboard metrics but on Grafana with some modernization and categorization
+
+### Workflow
+1. fetch data from qli.dashboard
+2. rearrange the data
+3. post data on Grafana periodically
+
+
+### API-endpoints
+- https://stats-test.qubic.li/stats/dashboard
+- https://stats-test.qubic.li/user
+- https://stats-test.qubic.li/stats
+- https://api.qubic.li/Score/EstimatedSolutionRevenue
