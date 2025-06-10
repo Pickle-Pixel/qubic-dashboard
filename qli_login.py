@@ -16,19 +16,19 @@ class TokenManager:
 
         # payload for request
         payload = {
-        "username": self.username,
-        "password": self.password,
-        "twoFactorCode": "",
-        "loadProfile": True
+            "username": self.username,
+            "password": self.password,
+            "twoFactorCode": "",
+            "loadProfile": True
         }
 
 
         # headers for request
         headers = {
-        "Content-Type": "application/json",
-        "Accept": "application/json, text/plain, */*",
-        "Origin": "https://pool.qubic.li",
-        "Referer": "https://pool.qubic.li/"
+            "Content-Type": "application/json",
+            "Accept": "application/json, text/plain, */*",
+            "Origin": "https://pool.qubic.li",
+            "Referer": "https://pool.qubic.li/"
         }
 
         response = requests.post(login_url, json=payload, headers=headers)
@@ -44,25 +44,33 @@ class TokenManager:
         decoded = jwt.decode(self.access_token, options={"verify_signature": False})
         self.expiry_time = decoded["exp"]
 
-        # Get token
+    # is token expired return True or False
+    def is_token_expired(self):
+        return time.time() >= self.expiry_time
+
+    # Get token
     def get_token(self):
-        if not self.access_token:
+        if not self.access_token or self.is_token_expired():
+            if self.is_token_expired():
+                print("Refreshing Token")
             self.login()
         return self.access_token
-        # Get token expiry in seconds
-    def get_expiry(self):
-        return self.expiry_time - time.time()
+    
 
 
-    # Initialize the class
+
+# Initialize the class
 token_manager = TokenManager()
 
 
-    # Debugging
+# Debugging
 token = token_manager.get_token()
-expiry = token_manager.get_expiry()
 print(token)
-print(expiry)
+
+token_manager.expiry_time = 0
+
+token2 = token_manager.get_token()
+print(token2)
 
 
     
