@@ -1,7 +1,4 @@
-# Use this code snippet in your app.
-# If you need more information about configurations
-# or implementing the sample code, visit the AWS docs:
-# https://aws.amazon.com/developer/language/python/
+# credential_fetcher.py
 
 import boto3
 from botocore.exceptions import ClientError
@@ -44,6 +41,8 @@ def get_secret():
     # Return credentials
     _credentials = secret_list["username"], secret_list["password"]
     return _credentials # _credentials[0] username _credentials[1] password
+
+
 
 
 
