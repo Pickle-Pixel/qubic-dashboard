@@ -72,6 +72,7 @@ token_manager = TokenManager()
 
 
 # Debugging
+
 token = token_manager.get_token()
 token_manager.display_token()
 
