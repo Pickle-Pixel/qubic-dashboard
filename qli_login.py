@@ -56,8 +56,8 @@ class TokenManager:
             self.login()
         
         if self.is_token_expired():
-                print("Refreshing Token")
-                self.login()
+            print("Refreshing Token")
+            self.login()
         return self.access_token
     
     # debugging purposes to print token.
@@ -73,12 +73,12 @@ token_manager = TokenManager()
 
 # Debugging
 
-token = token_manager.get_token()
-token_manager.display_token()
+#token = token_manager.get_token()
+#token_manager.display_token()
 
-token_manager.expiry_time = 0
+#token_manager.expiry_time = 0
 
-token_manager.display_token()
+#token_manager.display_token()
 
 
     

@@ -7,6 +7,8 @@ class DataManager:
         
         # Initalizing TokenManager object
         self.token = TokenManager()
+        self.token.login()
+        print("test: ", self.token.access_token)
 
         # User API Datapoint
         self.epoch = None
@@ -25,7 +27,7 @@ class DataManager:
         headers = {
             'accept': 'application/json, text/plain, */*',
             'accept-language': 'en-US,en;q=0.9',
-            'authorization': self.token.access_token,
+            'authorization': "Bearer " + self.token.access_token,
             'origin': 'https://pool.qubic.li',
             'referer': 'https://pool.qubic.li/',
             'sec-ch-ua': '"Not.A/Brand";v="99", "Chromium";v="136"',
@@ -38,7 +40,7 @@ class DataManager:
         }
 
         response = requests.get('https://api.qubic.li/Score/EstimatedSolutionRevenue', headers=headers)
-        return response.text
+        return response
         
 
 
@@ -50,8 +52,8 @@ class DataManager:
 
 #debugging
 data = DataManager()
-data.get_User_API()
-
+test = data.get_User_API()
+print(test.text)
 
         
 
