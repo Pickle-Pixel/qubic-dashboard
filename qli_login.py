@@ -8,6 +8,7 @@ class TokenManager:
     def __init__(self):
         self.username, self.password = get_secret()
         self.access_token = None
+        # not implemented by target domain but keeping it for future
         self.refresh_token = None
         self.expiry_time = 0
 
@@ -50,11 +51,18 @@ class TokenManager:
 
     # Get token
     def get_token(self):
-        if not self.access_token or self.is_token_expired():
-            if self.is_token_expired():
-                print("Refreshing Token")
+        if not self.access_token:
+            print("No Cached Token.. Fetching")
             self.login()
+        
+        if self.is_token_expired():
+                print("Refreshing Token")
+                self.login()
         return self.access_token
+    
+    # debugging purposes to print token.
+    def display_token(self):
+         print(self.access_token)
     
 
 
@@ -65,12 +73,11 @@ token_manager = TokenManager()
 
 # Debugging
 token = token_manager.get_token()
-print(token)
+token_manager.display_token()
 
 token_manager.expiry_time = 0
 
-token2 = token_manager.get_token()
-print(token2)
+token_manager.display_token()
 
 
     
