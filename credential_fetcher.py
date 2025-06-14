@@ -39,7 +39,7 @@ def get_secret():
     # Your code goes here.
     #print(secret) #debugging purposes
     # Return credentials
-    _credentials = secret_list["username"], secret_list["password"]
+    _credentials = secret_list["qubic_username"], secret_list["qubic_password"], secret_list["mongo_username"], secret_list["mongo_password"]
     return _credentials # _credentials[0] username _credentials[1] password
 
 

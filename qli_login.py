@@ -6,7 +6,7 @@ from credential_fetcher import get_secret
 
 class TokenManager:
     def __init__(self):
-        self.username, self.password = get_secret()
+        self.qubic_username, self.qubic_password, self.mongo_username, self.mongo_password = get_secret()
         self.access_token = None
         # not implemented by target domain but keeping it for future
         self.refresh_token = None
@@ -17,8 +17,8 @@ class TokenManager:
 
         # payload for request
         payload = {
-            "username": self.username,
-            "password": self.password,
+            "username": self.qubic_username,
+            "password": self.qubic_password,
             "twoFactorCode": "",
             "loadProfile": True
         }
