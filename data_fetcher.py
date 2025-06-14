@@ -2,6 +2,9 @@ from qli_login import TokenManager
 import requests
 import json
 import tls_requests
+from pymongo import MongoClient
+from datetime import datetime
+from zoneinfo import ZoneInfo  # for EST
 
 # DataManager class to handle API requests and data management
 
@@ -24,7 +27,7 @@ class DataManager:
         self.qubic_per_solution100 = None
         self.qubic_per_solution95 = None
         self.qubic_per_solution90 = None
-        
+
 
         
         self.headers = {
@@ -72,28 +75,40 @@ class DataManager:
         self.shares_per_solution = data["sharesPerSolution"]
         self.active_connections = data["userStats"]["activeConnections"]
         self.total_shares = data["userStats"]["totalShares"]
-
-
-            
+        
+    def save_to_db(self):
+        
+        
+        document = {
+            "time_stamp": datetime.now(ZoneInfo("America/Toronto")),
+            "epoch": self.epoch,
+            "active_connections": self.active_connections,
+            "total_shares": self.total_shares,
+            "shares_per_solution": self.shares_per_solution,
+            "total_solutions": self.total_shares / self.shares_per_solution,
+            "qubic_per_solution100": self.qubic_per_solution100,
+            "qubic_per_solution95": self.qubic_per_solution95,
+            "qubic_per_solution90": self.qubic_per_solution90
+        }
+        
+        # This function can be used to save the data to a database or file
+        uri = f"mongodb+srv://{self.token.mongo_username}:{self.token.mongo_password}@cluster0.4s0bnni.mongodb.net/?retryWrites=true&w=majority"
+        client = MongoClient(uri)
+        db = client["qubic_dashboard"]
+        collection = db["metrics"]
+        collection.insert_one(document)
+        
         
 
-
-
-#debugging
+#initializing DataManager object
 data = DataManager()
+# Fetching data from the Qubic API and saving it to a MongoDB database
 data.get_ESR_API()
+# Fetching user data from the Qubic API
 data.get_User_API()
-test = {
-    "epoch": data.epoch,
-    "active_connections": data.active_connections,
-    "total_shares": data.total_shares,
-    "shares_per_solution": data.shares_per_solution,
-    "total_solutions": data.total_shares / data.shares_per_solution,
-    "qubic_per_solution100": data.qubic_per_solution100,
-    "qubic_per_solution95": data.qubic_per_solution95,
-    "qubic_per_solution90": data.qubic_per_solution90
-}
-print(test)
+# Saving the fetched data to the database
+data.save_to_db()
+
 
         
 
