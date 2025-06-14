@@ -3,8 +3,8 @@ import requests
 import json
 import tls_requests
 from pymongo import MongoClient
-from datetime import datetime
-from zoneinfo import ZoneInfo  # for EST
+import time
+
 
 # DataManager class to handle API requests and data management
 
@@ -80,7 +80,7 @@ class DataManager:
         
         
         document = {
-            "time_stamp": datetime.now(ZoneInfo("America/Toronto")),
+            "time_stamp": int(time.time()),
             "epoch": self.epoch,
             "active_connections": self.active_connections,
             "total_shares": self.total_shares,
@@ -108,6 +108,9 @@ data.get_ESR_API()
 data.get_User_API()
 # Saving the fetched data to the database
 data.save_to_db()
+
+
+
 
 
         
