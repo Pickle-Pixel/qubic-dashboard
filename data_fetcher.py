@@ -18,6 +18,7 @@ class DataManager:
         self.active_connections = None
         self.total_shares = None
         self.shares_per_solution = None
+        self.total_hashrate = None
 
         # EstimatedSolutionRevenue API Datapoint
         self.qubic_per_solution100 = None
@@ -71,6 +72,9 @@ class DataManager:
         self.shares_per_solution = data["sharesPerSolution"]
         self.active_connections = data["userStats"]["activeConnections"]
         self.total_shares = data["userStats"]["totalShares"]
+
+
+            
         
 
 
@@ -84,6 +88,7 @@ test = {
     "active_connections": data.active_connections,
     "total_shares": data.total_shares,
     "shares_per_solution": data.shares_per_solution,
+    "total_solutions": data.total_shares / data.shares_per_solution,
     "qubic_per_solution100": data.qubic_per_solution100,
     "qubic_per_solution95": data.qubic_per_solution95,
     "qubic_per_solution90": data.qubic_per_solution90
