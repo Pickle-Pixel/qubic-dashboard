@@ -37,7 +37,7 @@ def get_secret():
     # Convert string to list
     secret_list = json.loads(secret)
     # Your code goes here.
-    print(secret) #debugging purposes
+    #print(secret) #debugging purposes
     # Return credentials
     _credentials = secret_list["username"], secret_list["password"]
     return _credentials # _credentials[0] username _credentials[1] password
