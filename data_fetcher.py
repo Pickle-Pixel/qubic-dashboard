@@ -4,7 +4,7 @@ import json
 import tls_requests
 from pymongo import MongoClient
 import time
-
+from flask import Flask, jsonify
 
 # DataManager class to handle API requests and data management
 
@@ -99,6 +99,26 @@ class DataManager:
         collection.insert_one(document)
         
         
+    def expose_api(self):
+        # This function can be used to expose the data via an API
+        
+        app = Flask(__name__)
+
+        @app.route('/data', methods=['GET'])
+        def get_data():
+            return jsonify({
+                "epoch": self.epoch,
+                "active_connections": self.active_connections,
+                "total_shares": self.total_shares,
+                "shares_per_solution": self.shares_per_solution,
+                "qubic_per_solution100": self.qubic_per_solution100,
+                "qubic_per_solution95": self.qubic_per_solution95,
+                "qubic_per_solution90": self.qubic_per_solution90
+            })
+
+        app.run(debug=True)
+        
+        
 
 #initializing DataManager object
 data = DataManager()
@@ -108,6 +128,8 @@ data.get_ESR_API()
 data.get_User_API()
 # Saving the fetched data to the database
 data.save_to_db()
+# Exposing the data via an API
+data.expose_api()
 
 
 
