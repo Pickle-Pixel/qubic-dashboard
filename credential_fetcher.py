@@ -4,11 +4,11 @@ import boto3
 from botocore.exceptions import ClientError
 import json
 
-_credentials = None
 
 def get_secret():
 
     global _credentials
+    _credentials = None
 
     if _credentials is not None:
         print("credentials already cached")

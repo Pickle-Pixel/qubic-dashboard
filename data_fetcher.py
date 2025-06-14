@@ -12,7 +12,6 @@ class DataManager:
         # Initalizing TokenManager object
         self.token = TokenManager()
         self.token.login()
-        print("test: ", self.token.access_token)
 
         # User API Datapoint
         self.epoch = None
@@ -56,7 +55,6 @@ class DataManager:
         self.qubic_per_solution100 = data["qubicPerSolution100"]
         self.qubic_per_solution95 = data["qubicPerSolution95"]
         self.qubic_per_solution90 = data["qubicPerSolution90"]
-        return data
         
 
     def get_User_API(self):
@@ -69,14 +67,27 @@ class DataManager:
         
         # unpacking the response
         data = response.json()
-        return data
+        self.epoch = data["epoch"]
+        self.shares_per_solution = data["sharesPerSolution"]
+        self.active_connections = data["userStats"]["activeConnections"]
+        self.total_shares = data["userStats"]["totalShares"]
         
 
 
 
 #debugging
 data = DataManager()
-test = data.get_User_API()
+data.get_ESR_API()
+data.get_User_API()
+test = {
+    "epoch": data.epoch,
+    "active_connections": data.active_connections,
+    "total_shares": data.total_shares,
+    "shares_per_solution": data.shares_per_solution,
+    "qubic_per_solution100": data.qubic_per_solution100,
+    "qubic_per_solution95": data.qubic_per_solution95,
+    "qubic_per_solution90": data.qubic_per_solution90
+}
 print(test)
 
         
