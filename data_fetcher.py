@@ -28,6 +28,9 @@ class DataManager:
         self.qubic_per_solution95 = None
         self.qubic_per_solution90 = None
 
+        # Custom API Datapoint
+        self.estimated_qubic_price = None
+
 
         
         self.headers = {
@@ -46,7 +49,7 @@ class DataManager:
         }
 
     # EstimatedSolutionRevenue API
-    def get_ESR_API(self):
+    def get_esr_api(self):
         data_url = "https://api.qubic.li/Score/EstimatedSolutionRevenue"
 
         response = requests.get(data_url, headers=self.headers)
@@ -61,7 +64,7 @@ class DataManager:
         self.qubic_per_solution90 = data["qubicPerSolution90"]
     
 
-    def get_Dashboard_API(self):
+    def get_dashboard_api(self):
         data_url = "https://stats-test.qubic.li/stats/dashboard"
 
         # using wrapper-tls-request to bypass cloudflare
@@ -73,7 +76,7 @@ class DataManager:
         data = response.json()
         self.total_hashrate = data["currentStats"][0]["hashratePps"]
 
-    def get_User_API(self):
+    def get_user_api(self):
         data_url = "https://stats-test.qubic.li/user"
         
         # using wrapper-tls-request to bypass Cloudflare
@@ -87,10 +90,12 @@ class DataManager:
         self.shares_per_solution = data["sharesPerSolution"]
         self.active_connections = data["userStats"]["activeConnections"]
         self.total_shares = data["userStats"]["totalShares"]
+
+    def get_qubic_price(self):
         
-    def save_to_db(self):
-        
-        
+
+
+    def save_to_db(self):     
         document = {
             "time_stamp": int(time.time()),
             "epoch": self.epoch,
@@ -120,11 +125,11 @@ while True:
         # initializing DataManager object
         data = DataManager()
         # Fetching data from the Qubic API and saving it to a MongoDB database
-        data.get_ESR_API()
+        data.get_esr_api()
         # Fetching data from Dashboard API
-        data.get_Dashboard_API()
+        data.get_dashboard_api()
         # Fetching user data from the Qubic API
-        data.get_User_API()
+        data.get_user_api()
         # Saving the fetched data to the database
         data.save_to_db()
         
