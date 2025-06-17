@@ -62,7 +62,7 @@ class DataManager:
     
 
     def get_Dashboard_API(self):
-        data_url = "https://pool.qubic.li"
+        data_url = "https://stats-test.qubic.li/stats/dashboard"
 
         # using wrapper-tls-request to bypass cloudflare
         response = tls_requests.get(data_url, headers=self.headers)
@@ -71,7 +71,7 @@ class DataManager:
         
         #unpacking the response
         data = response.json()
-        self.total_hashrate = data["currentStats"]["hashratePps"]
+        self.total_hashrate = data["currentStats"][0]["hashratePps"]
 
     def get_User_API(self):
         data_url = "https://stats-test.qubic.li/user"

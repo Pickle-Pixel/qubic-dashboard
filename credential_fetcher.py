@@ -42,8 +42,8 @@ def get_secret():
     _credentials = secret_list["qubic_username"], secret_list["qubic_password"], secret_list["mongo_username"], secret_list["mongo_password"]
     return _credentials # _credentials[0] username _credentials[1] password
 
-
-
+# debugging
+# print(get_secret())
 
 
 

@@ -3,3 +3,6 @@ wrapper_tls_requests
 tqdm
 pymongo
 flask
+requests
+jwt
+pyjwt
