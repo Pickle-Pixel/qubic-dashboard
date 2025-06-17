@@ -59,7 +59,19 @@ class DataManager:
         self.qubic_per_solution100 = data["qubicPerSolution100"]
         self.qubic_per_solution95 = data["qubicPerSolution95"]
         self.qubic_per_solution90 = data["qubicPerSolution90"]
+    
+
+    def get_Dashboard_API(self):
+        data_url = "https://pool.qubic.li"
+
+        # using wrapper-tls-request to bypass cloudflare
+        response = tls_requests.get(data_url, headers=self.headers)
+        if response.status_code != 200:
+            raise Exception(f"Failed to fetch Dashboard data: {response.status_code} - {response.text}")
         
+        #unpacking the response
+        data = response.json()
+        self.total_hashrate = data["currentStats"]["hashratePps"]
 
     def get_User_API(self):
         data_url = "https://stats-test.qubic.li/user"
@@ -88,7 +100,8 @@ class DataManager:
             "total_solutions": self.total_shares / self.shares_per_solution,
             "qubic_per_solution100": self.qubic_per_solution100,
             "qubic_per_solution95": self.qubic_per_solution95,
-            "qubic_per_solution90": self.qubic_per_solution90
+            "qubic_per_solution90": self.qubic_per_solution90,
+            "total_hashrate": self.total_hashrate
         }
         
         # This function can be used to save the data to a database or file
@@ -108,6 +121,8 @@ while True:
         data = DataManager()
         # Fetching data from the Qubic API and saving it to a MongoDB database
         data.get_ESR_API()
+        # Fetching data from Dashboard API
+        data.get_Dashboard_API()
         # Fetching user data from the Qubic API
         data.get_User_API()
         # Saving the fetched data to the database
