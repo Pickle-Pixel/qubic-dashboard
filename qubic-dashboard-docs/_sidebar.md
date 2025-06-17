@@ -1,0 +1,7 @@
+- [Home](/)
+- [How It Works](README.md)
+- [API Server](api_server.md)
+- [Data Fetcher](data_fetcher.md)
+- [Login Logic](qli_login.md)
+- [AWS Credentials](credential_fetcher.md)
+- [Public Dashboard](https://grafana.pickle-pixel.com/public-dashboards/24a16f5501a64bf1a94cd0337c72301d)
