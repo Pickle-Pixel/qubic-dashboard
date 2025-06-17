@@ -92,7 +92,14 @@ class DataManager:
         self.total_shares = data["userStats"]["totalShares"]
 
     def get_qubic_price(self):
-        
+        data_url = "https://coinmarketcap.com/currencies/qubic/"
+
+        response = requests.get(data_url)
+        if response.status_code != 200:
+            raise Exception(f"Failed to fetch data from PaprikaCoin API. {response.status_code} - {response.text}")
+        data = response.json()
+        self.estimated_qubic_price = data["quotes"]["USD"]["price"]
+
 
 
     def save_to_db(self):     
@@ -128,6 +135,8 @@ while True:
         data.get_esr_api()
         # Fetching data from Dashboard API
         data.get_dashboard_api()
+        # Fetch Qubic Price
+        data.get_qubic_price()
         # Fetching user data from the Qubic API
         data.get_user_api()
         # Saving the fetched data to the database
