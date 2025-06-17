@@ -99,37 +99,27 @@ class DataManager:
         collection.insert_one(document)
         
         
-    def expose_api(self):
-        # This function can be used to expose the data via an API
-        
-        app = Flask(__name__)
 
-        @app.route('/data', methods=['GET'])
-        def get_data():
-            return jsonify({
-                "epoch": self.epoch,
-                "active_connections": self.active_connections,
-                "total_shares": self.total_shares,
-                "shares_per_solution": self.shares_per_solution,
-                "qubic_per_solution100": self.qubic_per_solution100,
-                "qubic_per_solution95": self.qubic_per_solution95,
-                "qubic_per_solution90": self.qubic_per_solution90
-            })
-
-        app.run(debug=True)
         
+   
+while True:
+    try:
+        # initializing DataManager object
+        data = DataManager()
+        # Fetching data from the Qubic API and saving it to a MongoDB database
+        data.get_ESR_API()
+        # Fetching user data from the Qubic API
+        data.get_User_API()
+        # Saving the fetched data to the database
+        data.save_to_db()
         
-
-#initializing DataManager object
-data = DataManager()
-# Fetching data from the Qubic API and saving it to a MongoDB database
-data.get_ESR_API()
-# Fetching user data from the Qubic API
-data.get_User_API()
-# Saving the fetched data to the database
-data.save_to_db()
-# Exposing the data via an API
-data.expose_api()
+        print("Data fetched and saved successfully.")
+        
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    
+    # Sleep for 5 minutes before fetching again
+    time.sleep(300)     
 
 
 
