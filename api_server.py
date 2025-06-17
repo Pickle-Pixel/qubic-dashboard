@@ -6,7 +6,9 @@ def serve_data():
     app = Flask(__name__)
     
     qubic_username, qubic_password, mongo_username, mongo_password = get_secret()
-    print(mongo_password, mongo_username)
+
+    # debug purposes
+    #print(mongo_password, mongo_username)
 
     # MongoDB connection
     uri = f"mongodb+srv://{mongo_username}:{mongo_password}@cluster0.4s0bnni.mongodb.net/?retryWrites=true&w=majority"
