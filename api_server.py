@@ -19,8 +19,9 @@ def serve_data():
 
     @app.route('/data', methods=['GET'])
     def get_data():
-        data = list(collection.find({}, {'_id': 0}).sort("time_stamp", -1))  # Exclude MongoDB's default _id field
-        return jsonify(data)
+        latest_entry = collection.find_one({}, {'_id': 0}, sort=[("time_stamp", -1)])
+        return jsonify(latest_entry)
+
 
         # Start Flask server
     app.run(host='0.0.0.0', port=5001)
