@@ -19,8 +19,11 @@ def serve_data():
 
     @app.route('/data', methods=['GET'])
     def get_data():
-        latest_entry = collection.find_one({}, {'_id': 0}, sort=[("time_stamp", -1)])
-        return jsonify(latest_entry)
+        latest_entries = list(
+            collection.find({}, {'_id': 0}).sort("time_stamp", -1).limit(5)
+        )
+        return jsonify(latest_entries)
+
 
 
         # Start Flask server

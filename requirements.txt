@@ -1,0 +1,5 @@
+boto3
+wrapper_tls_requests
+tqdm
+pymongo
+flask
