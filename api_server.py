@@ -20,7 +20,7 @@ def serve_data():
     @app.route('/data', methods=['GET'])
     def get_data():
         latest_entries = list(
-            collection.find({}, {'_id': 0}).sort("time_stamp", -1).limit(5)
+            collection.find({}, {'_id': 0}).sort("time_stamp", -1).limit(48)
         )
         return jsonify(latest_entries)
 
