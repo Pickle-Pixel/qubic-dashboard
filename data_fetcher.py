@@ -92,7 +92,7 @@ class DataManager:
         self.total_shares = data["userStats"]["totalShares"]
 
     def get_qubic_price(self):
-        data_url = "https://coinmarketcap.com/currencies/qubic/"
+        data_url = "https://api.coinpaprika.com/v1/tickers/qu-qubic"
 
         response = requests.get(data_url)
         if response.status_code != 200:
