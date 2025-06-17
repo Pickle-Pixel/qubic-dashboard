@@ -1,2 +1,4 @@
-# qubic-dashboard
-Grafana dashboard to monitor mining nodes metrics.
+## 📖 Documentation
+
+Full documentation available at:  
+👉 [Qubic Grafana Docs](https://pickle-pixel.github.io/qubic-dashboard/)
