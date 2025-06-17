@@ -113,7 +113,8 @@ class DataManager:
             "qubic_per_solution100": self.qubic_per_solution100,
             "qubic_per_solution95": self.qubic_per_solution95,
             "qubic_per_solution90": self.qubic_per_solution90,
-            "total_hashrate": self.total_hashrate
+            "total_hashrate": self.total_hashrate,
+            "qubic_price": self.estimated_qubic_price
         }
         
         # This function can be used to save the data to a database or file
