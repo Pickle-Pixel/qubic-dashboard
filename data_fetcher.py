@@ -74,7 +74,7 @@ class DataManager:
         
         #unpacking the response
         data = response.json()
-        self.total_hashrate = data["currentStats"][0]["hashratePps"]
+        self.total_hashrate = data["currentStats"][-1]["hashratePps"]
 
     def get_user_api(self):
         data_url = "https://stats-test.qubic.li/user"
