@@ -14,7 +14,7 @@ def get_secret():
         print("credentials already cached")
         return _credentials # already cached
     
-    secret_name = "Qubic-Account-1"
+    secret_name = "Qubic-Account"
     region_name = "us-east-1"
 
     # Create a Secrets Manager client
